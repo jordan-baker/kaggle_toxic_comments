@@ -16,6 +16,13 @@ random.seed(312)
 
 # nlp
 import re
+import string
+import nltk
+import spacy
+from nltk.corpus import stopwords
+
+from nltk.tokenize import word_tokenize
+from nltk.tokenize import TweetTokenizer  
 
 # set working directory
 path = "/Users/jordanbaker/Documents/Data Science/kaggle_toxic"
@@ -51,6 +58,24 @@ train['punct_count'] = train['comment_text'].apply(lambda x: len([i for i in str
 train['upper_count'] = train['comment_text'].apply(lambda x: len([i for i in str(x).split() if i.isupper()]))
 train['title_count'] = train['comment_text'].apply(lambda x: len([i for i in str(x).split() if i.istitle()]))
 train['stopword_count'] = train['comment_text'].apply(lambda x: len([i for i in str(x).lower().split() if i in eng_stopwords]))
+
+def cleaner(comment):
+
+    comment=comment.lower()
+    comment=re.sub('\\n', '', comment)
+    comment=re.sub('\[\[.*\]', '', comment)
+    
+    words = tokenizer.tokenize(comment)
+    
+    words = [APPO[i] if i in APPO else i for i in words]
+    words = [lem.lemmatize(word, 'v') for i in words]
+    words = [i for i in words if not i in eng_stopwords]
+    
+    cleaned = ' '.join(words)
+
+    return(cleaned)
+
+
 
 
 
