@@ -23,6 +23,13 @@ from nltk.corpus import stopwords
 
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import TweetTokenizer  
+from nltk import pos_tag
+from nltk.stem.wordnet import WordNetLemmatizer 
+
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer, HashingVectorizer
+from sklearn.decomposition import TruncatedSVD
+
+eng_stopwords = set(stopwords.words('english'))
 
 # set working directory
 path = "/Users/jordanbaker/Documents/Data Science/kaggle_toxic"
@@ -59,21 +66,27 @@ train['upper_count'] = train['comment_text'].apply(lambda x: len([i for i in str
 train['title_count'] = train['comment_text'].apply(lambda x: len([i for i in str(x).split() if i.istitle()]))
 train['stopword_count'] = train['comment_text'].apply(lambda x: len([i for i in str(x).lower().split() if i in eng_stopwords]))
 
+tokenizer = TweetTokenizer()
+lem = WordNetLemmatizer()
+
 def cleaner(comment):
 
-    comment=comment.lower()
-    comment=re.sub('\\n', '', comment)
-    comment=re.sub('\[\[.*\]', '', comment)
+    comment = comment.lower()
+    comment = re.sub('\\n', '', comment)
+    comment = re.sub('\[\[.*\]', '', comment)
     
     words = tokenizer.tokenize(comment)
     
     words = [APPO[i] if i in APPO else i for i in words]
-    words = [lem.lemmatize(word, 'v') for i in words]
+    words = [lem.lemmatize(i, 'v') for i in words]
     words = [i for i in words if not i in eng_stopwords]
     
     cleaned = ' '.join(words)
 
     return(cleaned)
+    
+clean_train = train['comment_text'].apply(lambda x: cleaner(x))
+
 
 
 
