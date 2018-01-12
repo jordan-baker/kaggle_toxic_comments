@@ -29,6 +29,10 @@ from nltk.stem.wordnet import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer, HashingVectorizer
 from sklearn.decomposition import TruncatedSVD
 
+from sklearn.linear_model import LogisticRegression
+
+from scipy.sparse import csr_matrix, hstack
+
 # set working directory
 path = "/Users/jordanbaker/Documents/Data Science/kaggle_toxic"
 os.chdir(path)
@@ -76,6 +80,12 @@ both['punct_count'] = both['comment_text'].apply(lambda x: len([i for i in str(x
 both['upper_count'] = both['comment_text'].apply(lambda x: len([i for i in str(x).split() if i.isupper()]))
 both['title_count'] = both['comment_text'].apply(lambda x: len([i for i in str(x).split() if i.istitle()]))
 both['stopword_count'] = both['comment_text'].apply(lambda x: len([i for i in str(x).lower().split() if i in eng_stopwords]))
+
+target_cols = train.columns[2:]
+extra_cols = both.columns[2:]
+
+train_extra = both.iloc[0:len(train),][extra_cols]
+test_extra = both.iloc[len(train):,][extra_cols]
 
 # apostrophe dictionary
 APPO = {
@@ -165,22 +175,46 @@ def cleaner(comment):
 corpus = both['comment_text']
 clean_corpus = corpus.apply(lambda x: cleaner(x))
 
-# break up train and test features
-train_fts = both.iloc[0:len(train),]
-test_fts = both.iloc[len(train):,]
-                     
-                     
-### REVIEW ###
-
-tfv = TfidfVectorizer(min_df=100, max_features=100000, strip_accents='unicode',
-                      analyzer='word' ,ngram_range=(1,1), use_idf=1,
+# initialize tf-idf vectorizer
+tfv = TfidfVectorizer(min_df=100, max_df=0.9, max_features=100000,
+                      strip_accents='unicode', analyzer='word',
+                      ngram_range=(1,2), use_idf=1,
                       smooth_idf=1, sublinear_tf=1, stop_words = 'english')
+
+# fit tfv to the cleaned corpus
+# translate features to an array
 tfv.fit(clean_corpus)
 features = np.array(tfv.get_feature_names())
 
-# get top n for unigrams
-tfidf_top_n_per_lass=top_feats_by_class(train_unigrams,features)
+# create bigrams for training and testing sets
+train_bigrams =  tfv.transform(train.comment_text.astype('U'))
+test_bigrams = tfv.transform(test.comment_text.astype('U'))
 
+train_x = hstack((train_bigrams, train_extra)).tocsr()
+test_x = hstack((test_bigrams, test_extra)).tocsr()
+
+
+def pr(y_i, y):
+    p = train_x[y==y_i].sum(0)
+    return (p+1) / ((y==y_i).sum()+1)
+    
+def get_mdl(y):
+    y = y.values
+    r = np.log(pr(1,y) / pr(0,y))
+    m = LogisticRegression(C=4, dual=True)
+    x_nb = train_x.multiply(r)
+    return m.fit(x_nb, y), r
+
+preds = np.zeros((len(test), len(target_cols)))
+
+for i, j in enumerate(target_cols):
+    print('fit', j)
+    m,r = get_mdl(train[j])
+    preds[:,i] = m.predict_proba(test_x.multiply(r))[:,1]
+
+submid = pd.DataFrame({'id': sample_sub['id']})
+submission = pd.concat([submid, pd.DataFrame(preds, columns = target_cols)], axis=1)
+submission.to_csv('submission2.csv', index=False)
 
 
 
