@@ -38,9 +38,44 @@ train = pd.read_csv("train.csv")
 test = pd.read_csv("test.csv")
 sample_sub = pd.read_csv("sample_submission.csv")
 
+# check and replace nulls with unknown
+train.isnull().sum()
+test.isnull().sum()
+train['comment_text'].fillna('unknown', inplace=True)
+test['comment_text'].fillna('unknown', inplace=True)
+
+# calculate class rates
+np.sum(train['toxic'][train['toxic']==1])/len(train) # 9.64%
+np.sum(train['severe_toxic'][train['severe_toxic']==1])/len(train) # 1.01%
+np.sum(train['obscene'][train['obscene']==1])/len(train) # 5.33%
+np.sum(train['threat'][train['threat']==1])/len(train) # 0.32%
+np.sum(train['insult'][train['insult']==1])/len(train) # 4.97%
+np.sum(train['identity_hate'][train['identity_hate']==1])/len(train) # 0.85%
+
+# merge comments into one corpus so that all vocab is included
+both = pd.concat([train.iloc[:,0:2], test.iloc[:,0:2]])
+both = both.reset_index(drop=True)
+
+# set stopwords
 eng_stopwords = set(stopwords.words('english'))
-tokenizer = TweetTokenizer()
-lem = WordNetLemmatizer()
+
+# features for special characters
+both['!'] = both['comment_text'].apply(lambda x: x.count('!'))
+both['?'] = both['comment_text'].apply(lambda x: x.count('?'))
+both['@'] = both['comment_text'].apply(lambda x: x.count('@'))
+both['#'] = both['comment_text'].apply(lambda x: x.count('#'))
+both['$'] = both['comment_text'].apply(lambda x: x.count('$'))
+both[','] = both['comment_text'].apply(lambda x: x.count(','))
+both['.'] = both['comment_text'].apply(lambda x: x.count('.'))
+
+# features for counts
+both['word_count'] = both['comment_text'].apply(lambda x: len(x.split()))
+both['unique_word_count'] = both['comment_text'].apply(lambda x: len(set(x.split())))
+both['sent_count'] = both['comment_text'].apply(lambda x: len(re.findall("\n", str(x)))+1)
+both['punct_count'] = both['comment_text'].apply(lambda x: len([i for i in str(x) if i in string.punctuation]))
+both['upper_count'] = both['comment_text'].apply(lambda x: len([i for i in str(x).split() if i.isupper()]))
+both['title_count'] = both['comment_text'].apply(lambda x: len([i for i in str(x).split() if i.istitle()]))
+both['stopword_count'] = both['comment_text'].apply(lambda x: len([i for i in str(x).lower().split() if i in eng_stopwords]))
 
 # apostrophe dictionary
 APPO = {
@@ -105,6 +140,11 @@ APPO = {
 "tryin'":"trying"
 }
 
+# set up tokenizer and lemmatizer
+tokenizer = TweetTokenizer()
+lem = WordNetLemmatizer()
+
+# create cleaning function
 def cleaner(comment):
 
     comment = comment.lower()
@@ -121,37 +161,25 @@ def cleaner(comment):
 
     return(cleaned)
 
-clean_train = train['comment_text'].apply(lambda x: cleaner(x))
+# apply cleaning function to comments
+corpus = both['comment_text']
+clean_corpus = corpus.apply(lambda x: cleaner(x))
 
+# break up train and test features
+train_fts = both.iloc[0:len(train),]
+test_fts = both.iloc[len(train):,]
+                     
+                     
+### REVIEW ###
 
+tfv = TfidfVectorizer(min_df=100, max_features=100000, strip_accents='unicode',
+                      analyzer='word' ,ngram_range=(1,1), use_idf=1,
+                      smooth_idf=1, sublinear_tf=1, stop_words = 'english')
+tfv.fit(clean_corpus)
+features = np.array(tfv.get_feature_names())
 
-
-# calculate class rates
-np.sum(train['toxic'][train['toxic']==1])/len(train) # 9.64%
-np.sum(train['severe_toxic'][train['severe_toxic']==1])/len(train) # 1.01%
-np.sum(train['obscene'][train['obscene']==1])/len(train) # 5.33%
-np.sum(train['threat'][train['threat']==1])/len(train) # 0.32%
-np.sum(train['insult'][train['insult']==1])/len(train) # 4.97%
-np.sum(train['identity_hate'][train['identity_hate']==1])/len(train) # 0.85%
-
-# features for special characters
-train['!'] = train['comment_text'].apply(lambda x: x.count('!'))
-train['?'] = train['comment_text'].apply(lambda x: x.count('?'))
-train['@'] = train['comment_text'].apply(lambda x: x.count('@'))
-train['#'] = train['comment_text'].apply(lambda x: x.count('#'))
-train['$'] = train['comment_text'].apply(lambda x: x.count('$'))
-train[','] = train['comment_text'].apply(lambda x: x.count(','))
-train['.'] = train['comment_text'].apply(lambda x: x.count('.'))
-
-# features for counts
-train['word_count'] = train['comment_text'].apply(lambda x: len(x.split()))
-train['unique_word_count'] = train['comment_text'].apply(lambda x: len(set(x.split())))
-train['sent_count'] = train['comment_text'].apply(lambda x: len(re.findall("\n", str(x)))+1)
-train['punct_count'] = train['comment_text'].apply(lambda x: len([i for i in str(x) if i in string.punctuation]))
-train['upper_count'] = train['comment_text'].apply(lambda x: len([i for i in str(x).split() if i.isupper()]))
-train['title_count'] = train['comment_text'].apply(lambda x: len([i for i in str(x).split() if i.istitle()]))
-train['stopword_count'] = train['comment_text'].apply(lambda x: len([i for i in str(x).lower().split() if i in eng_stopwords]))
-
+# get top n for unigrams
+tfidf_top_n_per_lass=top_feats_by_class(train_unigrams,features)
 
 
 
