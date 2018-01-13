@@ -193,7 +193,6 @@ test_bigrams = tfv.transform(test.comment_text.astype('U'))
 train_x = hstack((train_bigrams, train_extra)).tocsr()
 test_x = hstack((test_bigrams, test_extra)).tocsr()
 
-
 def pr(y_i, y):
     p = train_x[y==y_i].sum(0)
     return (p+1) / ((y==y_i).sum()+1)
@@ -214,7 +213,7 @@ for i, j in enumerate(target_cols):
 
 submid = pd.DataFrame({'id': sample_sub['id']})
 submission = pd.concat([submid, pd.DataFrame(preds, columns = target_cols)], axis=1)
-submission.to_csv('submission2.csv', index=False)
+submission.to_csv('submission_save.csv', index=False)
 
 
 
