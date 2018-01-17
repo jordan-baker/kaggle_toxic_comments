@@ -219,7 +219,15 @@ submission.to_csv('submission_save.csv', index=False)
 # add new features
 # try out new ngrams
 # try out entirely new modeling approach
+# grid search parameters
 # add visualization
+
+#ngram testing
+#ngram_range=(1,2)
+#ngram_range=(1,2)
+#ngram_range=(1,2)
+#ngram_range=(1,2)
+#ngram_range=(1,2)
 
 
 
