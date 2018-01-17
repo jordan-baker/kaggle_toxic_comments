@@ -212,7 +212,7 @@ for i, j in enumerate(target_cols):
     preds[:,i] = m.predict_proba(test_x.multiply(r))[:,1]
 
 submid = pd.DataFrame({'id': sample_sub['id']})
-submission = pd.concat([submid, pd.DataFrame(preds, columns = target_cols)], axis=1)
+submission = pd.concat([submid, pd.DataFrame(preds, columns=target_cols)], axis=1)
 submission.to_csv('submission_save.csv', index=False)
 
 
