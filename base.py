@@ -228,6 +228,7 @@ submission.to_csv('submission_save.csv', index=False)
 #ngram_range=(1,2)
 #ngram_range=(1,2)
 #ngram_range=(1,2)
+#ngram_range=(1,2)
 
 
 
