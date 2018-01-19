@@ -223,7 +223,9 @@ submission.to_csv('submission_save.csv', index=False)
 
 # different modeling approaches
 # xgboost
-# ltsm
+# lstm
+# rnn
+# other from kaggle?
 
 #ngram testing
 #ngram_range=(1,2)
