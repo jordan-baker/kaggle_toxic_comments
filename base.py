@@ -219,7 +219,7 @@ submission.to_csv('submission_save.csv', index=False)
 # try out new ngrams
 # try out entirely new modeling approach
 # grid search parameters
-# add visualization
+# add visualization - in R
 
 # different modeling approaches
 # xgboost
