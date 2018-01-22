@@ -225,6 +225,7 @@ submission.to_csv('submission_save.csv', index=False)
 # xgboost
 # lstm
 # rnn
+# general writeup of each method
 # other from kaggle?
 
 #ngram testing
