@@ -215,6 +215,8 @@ submid = pd.DataFrame({'id': sample_sub['id']})
 submission = pd.concat([submid, pd.DataFrame(preds, columns=target_cols)], axis=1)
 submission.to_csv('submission_save.csv', index=False)
 
+# update testing data
+# resubmit baseline score
 # add new features
 # try out new ngrams
 # try out entirely new modeling approach
