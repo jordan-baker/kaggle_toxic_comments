@@ -10,20 +10,14 @@ https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge
 
 # load base packages
 import os
-import pandas as pd 
 import numpy as np
+import pandas as pd
 
-# load nlp packages
-import string
-import re    #for regex
-from nltk.tokenize.toktok import ToktokTokenizer
-from nltk.stem.wordnet import WordNetLemmatizer 
-from nltk.corpus import stopwords
-from nltk.corpus import wordnet
-import gensim
-from gensim.models import CoherenceModel, LdaModel, LsiModel, HdpModel
-from gensim.models.wrappers import LdaMallet
-from gensim.corpora import Dictionary
+# load nlp and modeling packages
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.preprocessing import MaxAbsScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import log_loss
 
 path = "/Users/jordanbaker/Documents/Data Science/kaggle_toxic"
 os.chdir(path)
@@ -44,3 +38,15 @@ np.sum(train['obscene'][train['obscene']==1])/len(train) # 5.29%
 np.sum(train['threat'][train['threat']==1])/len(train) # 0.30%
 np.sum(train['insult'][train['insult']==1])/len(train) # 4.94%
 np.sum(train['identity_hate'][train['identity_hate']==1])/len(train) # 0.88%
+
+# combine train and test comments together for entire corpus
+both = pd.concat([train['comment_text'], test['comment_text']], axis=0)
+train_rows = train.shape[0]
+
+# convert a the corpus of comments into a sparse tf-idf matrix
+# tf is term frequency: how often the word occurs, with low occurences being deemed 'important'
+# idf is inverse document frequency: weights (using log function) applied to account for words being used more/less
+vectorizer = TfidfVectorizer(stop_words='english', max_features=10000)
+data = vectorizer.fit_transform(both)
+
+
