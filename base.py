@@ -82,6 +82,12 @@ print('mean column-wise log loss:', np.mean(loss))
 # max_features=50000, mean log loss=0.04358703284081411
 # max_features=100000, mean log loss=0.04224381270661481
 
+# submission code
+# MAKE SURE TO UPDATE SUBMISSION NUMBER
+# last submission number: 1
+sub = pd.DataFrame({'id': sample_sub["id"]})
+submission = pd.concat([sub, pd.DataFrame(preds, columns = cats)], axis=1)
+submission.to_csv('submission1.csv', index=False)
 
-
+# https://www.kaggle.com/yekenot/toxic-regression/code
 
