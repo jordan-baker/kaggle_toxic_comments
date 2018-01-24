@@ -91,3 +91,13 @@ submission.to_csv('submission1.csv', index=False)
 
 # https://www.kaggle.com/yekenot/toxic-regression/code
 
+# to do
+# better commenting/explanations
+# review model block of code
+# cross validate results
+# try new model approach?
+
+
+
+
+
