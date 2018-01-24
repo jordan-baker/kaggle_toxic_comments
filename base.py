@@ -46,7 +46,40 @@ train_rows = train.shape[0]
 # convert a the corpus of comments into a sparse tf-idf matrix
 # tf is term frequency: how often the word occurs, with low occurences being deemed 'important'
 # idf is inverse document frequency: weights (using log function) applied to account for words being used more/less
-vectorizer = TfidfVectorizer(stop_words='english', max_features=10000)
+vectorizer = TfidfVectorizer(stop_words='english', max_features=25000)
 data = vectorizer.fit_transform(both)
+
+# why do we do this?
+x = MaxAbsScaler().fit_transform(data)
+
+# define output categories
+cats = ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate']
+
+# initialize predictions to a matrix of 0s
+# initialize loss list
+preds = np.zeros((test.shape[0], len(cats)))
+loss = []
+
+# for model performance we will use log loss
+# log loss estimates model accuracy by penalizing false classifications
+# minimizing log loss is basically equivalent to maximizing accuracy
+# log Loss heavily penalises classifiers that are confident about an incorrect classification
+# http://www.exegetic.biz/blog/2015/12/making-sense-logarithmic-loss/
+for i, j in enumerate(cats):
+    print('Fit '+j)
+    model = LogisticRegression()
+    model.fit(x[:train_rows], train[j])
+    preds[:,i] = model.predict_proba(x[train_rows:])[:,1]
+    
+    pred_train = model.predict_proba(x[:train_rows])[:,1]
+    print('log loss:', log_loss(train[j], pred_train))
+    loss.append(log_loss(train[j], pred_train))
+    
+print('mean column-wise log loss:', np.mean(loss))
+
+# max_features=10000, mean log loss=0.04704559438912459
+# max_features=25000, mean log loss=0.04704559438912459
+
+
 
 
