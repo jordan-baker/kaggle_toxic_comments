@@ -46,7 +46,7 @@ train_rows = train.shape[0]
 # convert a the corpus of comments into a sparse tf-idf matrix
 # tf is term frequency: how often the word occurs, with low occurences being deemed 'important'
 # idf is inverse document frequency: weights (using log function) applied to account for words being used more/less
-vectorizer = TfidfVectorizer(stop_words='english', max_features=25000)
+vectorizer = TfidfVectorizer(stop_words='english', max_features=100000)
 data = vectorizer.fit_transform(both)
 
 # why do we do this?
@@ -78,7 +78,9 @@ for i, j in enumerate(cats):
 print('mean column-wise log loss:', np.mean(loss))
 
 # max_features=10000, mean log loss=0.04704559438912459
-# max_features=25000, mean log loss=0.04704559438912459
+# max_features=25000, mean log loss=0.044891590723050594
+# max_features=50000, mean log loss=0.04358703284081411
+# max_features=100000, mean log loss=0.04224381270661481
 
 
 
