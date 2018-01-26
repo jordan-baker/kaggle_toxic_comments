@@ -93,6 +93,7 @@ submission.to_csv('submission1.csv', index=False)
 
 # to do
 # better commenting/explanations
+# add visualization
 # review model block of code
 # cross validate results
 # try new model approach?
