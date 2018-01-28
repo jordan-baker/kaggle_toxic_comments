@@ -98,6 +98,9 @@ submission.to_csv('submission1.csv', index=False)
 # review model block of code
 # cross validate results
 # try new model approach?
+# alternate data sources?
+
+# https://www.kaggle.com/sbongo/for-beginners-tackling-toxic-using-keras/notebook
 
 
 
