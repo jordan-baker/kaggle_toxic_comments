@@ -99,6 +99,7 @@ submission.to_csv('submission1.csv', index=False)
 # cross validate results
 # try new model approach?
 # alternate data sources?
+# final writeup
 
 # https://www.kaggle.com/sbongo/for-beginners-tackling-toxic-using-keras/notebook
 # new base model? https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/discussion/47964
