@@ -82,6 +82,19 @@ print('mean column-wise log loss:', np.mean(loss))
 # max_features=50000, mean log loss=0.04358703284081411
 # max_features=100000, mean log loss=0.04224381270661481
 
+
+for i, j in enumerate(cats):
+    print('Fit '+j)
+    model = LogisticRegression()
+    model.fit(x[:train_rows], train[j])
+    preds[:,i] = model.predict_proba(x[train_rows:])[:,1]
+    
+    pred_train = model.predict_proba(x[:train_rows])[:,1]
+    print('log loss:', log_loss(train[j], pred_train))
+    loss.append(log_loss(train[j], pred_train))
+    
+print('mean column-wise log loss:', np.mean(loss))
+
 # submission code
 # MAKE SURE TO UPDATE SUBMISSION NUMBER
 # last submission number: 1
