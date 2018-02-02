@@ -83,6 +83,11 @@ print('mean column-wise log loss:', np.mean(loss))
 # max_features=100000, mean log loss=0.04224381270661481
 
 
+
+
+
+# maybe new performance metric?
+# this is a repeat of code that starts at line 68
 for i, j in enumerate(cats):
     print('Fit '+j)
     model = LogisticRegression()
