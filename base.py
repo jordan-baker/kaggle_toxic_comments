@@ -77,6 +77,7 @@ for i, j in enumerate(cats):
     
 print('mean column-wise log loss:', np.mean(loss))
 
+# diminishing returns as max features increases, but perhaps try more
 # max_features=10000, mean log loss=0.04704559438912459
 # max_features=25000, mean log loss=0.044891590723050594
 # max_features=50000, mean log loss=0.04358703284081411
