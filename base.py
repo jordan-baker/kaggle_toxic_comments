@@ -110,9 +110,6 @@ submission.to_csv('submission1.csv', index=False)
 
 # https://www.kaggle.com/yekenot/toxic-regression/code
 
-
-
-
 # to do list
 # better commenting/explanations
 # jupyter?
@@ -123,6 +120,12 @@ submission.to_csv('submission1.csv', index=False)
 # try new model approach?
 # alternate data sources?
 # final writeup
+# post to github io
+
+
+
+
+
 
 
 
