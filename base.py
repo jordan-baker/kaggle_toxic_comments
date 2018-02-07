@@ -117,10 +117,14 @@ submission.to_csv('submission1.csv', index=False)
 # add visualization
 # review model block of code
 # cross validate results
-# try new model approach?
-# alternate data sources?
+# try new model approach? check kaggle for this
+# alternate data sources? check kaggle for these
 # final writeup
 # post to github io
+
+
+
+
 
 
 
