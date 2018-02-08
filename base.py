@@ -110,10 +110,6 @@ submission.to_csv('submission1.csv', index=False)
 
 # https://www.kaggle.com/yekenot/toxic-regression/code
 
-
-
-
-
 #==============================================================================
 # TO DO
 
@@ -131,13 +127,11 @@ submission.to_csv('submission1.csv', index=False)
 
 
 
-
-
-
-
-
+#==============================================================================
+# REFERENCES
 # https://www.kaggle.com/sbongo/for-beginners-tackling-toxic-using-keras/notebook
 # new base model? https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/discussion/47964
+#==============================================================================
 
 
 
