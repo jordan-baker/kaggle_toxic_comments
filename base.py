@@ -110,6 +110,11 @@ submission.to_csv('submission1.csv', index=False)
 
 # https://www.kaggle.com/yekenot/toxic-regression/code
 
+
+
+
+
+
 #==============================================================================
 # TO DO
 
@@ -124,6 +129,9 @@ submission.to_csv('submission1.csv', index=False)
 # final writeup
 # post to github io
 #==============================================================================
+
+
+
 
 
 
