@@ -126,6 +126,11 @@ submission.to_csv('submission1.csv', index=False)
 
 
 
+
+
+
+
+
 # TO DO
 
 
@@ -141,6 +146,14 @@ submission.to_csv('submission1.csv', index=False)
 # alternate data sources? check kaggle for these
 # final writeup
 # post to github io
+
+
+
+
+
+
+
+
 
 
 
