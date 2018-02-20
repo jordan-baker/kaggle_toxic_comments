@@ -87,6 +87,12 @@ print('mean column-wise log loss:', np.mean(loss))
 
 
 
+
+
+
+
+
+
 # maybe new performance metric?
 # this is a repeat of code that starts at line 68
 for i, j in enumerate(cats):
@@ -110,30 +116,8 @@ submission.to_csv('submission1.csv', index=False)
 
 # https://www.kaggle.com/yekenot/toxic-regression/code
 
-
-
-
-
-
 #==============================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # TO DO
-
-
 
 # better commenting/explanations
 # check out model zoo? or something similar to that?
@@ -147,33 +131,7 @@ submission.to_csv('submission1.csv', index=False)
 # final writeup
 # post to github io
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #==============================================================================
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #==============================================================================
