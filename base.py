@@ -92,6 +92,20 @@ loss = []
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # for model performance we will use log loss
 # log loss estimates model accuracy by penalizing false classifications
 # minimizing log loss is basically equivalent to maximizing accuracy
