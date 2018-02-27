@@ -82,7 +82,8 @@ print('mean column-wise log loss:', np.mean(loss))
 # max_features=25000, mean log loss=0.044891590723050594
 # max_features=50000, mean log loss=0.04358703284081411
 # max_features=100000, mean log loss=0.04224381270661481
-
+# max_features=250000, mean log loss=????
+# need to continue?
 
 # maybe new performance metric?
 # this is a repeat of code that starts at line 68
@@ -117,8 +118,9 @@ submission.to_csv('submission1.csv', index=False)
 # add visualization
 # review model block of code
 # cross validate results
-# try new model approach? check kaggle for this
+# try new model approach? check kaggle for these
 # alternate data sources? check kaggle for these
+# update to pep8 standards
 # final writeup
 # post to github io
 
