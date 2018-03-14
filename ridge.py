@@ -97,4 +97,5 @@ pred.to_csv('predictions3.csv', index=False)
 # 50k words, 50k chars, score = 0.9811, file = predictions
 # 50k words, 10k chars, score = 0.9805, file = predictions2
 # 10k words, 50k chars, score = 0.9809, file = predictions3
-
+# 50k words, 100k chars, score = _____, file = predictions4
+# 100k words, 100k chars, score = _____, file = predictions5
