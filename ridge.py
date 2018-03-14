@@ -56,7 +56,7 @@ comb_text = pd.concat([train_text, test_text])
 word_vectorizer = TfidfVectorizer(sublinear_tf=True, strip_accents='unicode', 
                                   analyzer='word', token_pattern=r'\w{1,}', 
                                   stop_words='english', ngram_range=(1, 1),
-                                  max_features=50000)
+                                  max_features=10000)
 
 # fit the vectorizer to all text (so that all words are observed)
 # generate testing and training features using the fitted vectorizer
@@ -67,7 +67,7 @@ test_word_features = word_vectorizer.transform(test_text)
 # same concept as above, but at the character level
 char_vectorizer = TfidfVectorizer(sublinear_tf=True, strip_accents='unicode', 
                                   analyzer='char', stop_words='english', 
-                                  ngram_range=(2, 6), max_features=10000)
+                                  ngram_range=(2, 6), max_features=50000)
 
 # fit the vectorizer to all text (so that all ngrams are observed)
 # generate testing and training features using the fitted vectorizer
@@ -92,8 +92,9 @@ for class_name in classes:
     pred[class_name] = classifier.predict(test_features)
 
 # output predictions to csv file
-pred.to_csv('predictions2.csv', index=False)
+pred.to_csv('predictions3.csv', index=False)
 
 # 50k words, 50k chars, score = 0.9811, file = predictions
 # 50k words, 10k chars, score = 0.9805, file = predictions2
+# 10k words, 50k chars, score = 0.9809, file = predictions3
 
