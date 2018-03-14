@@ -94,4 +94,6 @@ for class_name in classes:
 # output predictions to csv file
 pred.to_csv('predictions.csv', index=False)
 
+# 50k words, 50k chars, score = 0.9811
+
 
