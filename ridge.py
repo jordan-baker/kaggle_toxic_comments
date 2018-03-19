@@ -67,7 +67,7 @@ test_word_features = word_vectorizer.transform(test_text)
 # same concept as above, but at the character level
 char_vectorizer = TfidfVectorizer(sublinear_tf=True, strip_accents='unicode', 
                                   analyzer='char', stop_words='english', 
-                                  ngram_range=(2, 6), max_features=100000)
+                                  ngram_range=(1, 6), max_features=100000)
 
 # fit the vectorizer to all text (so that all ngrams are observed)
 # generate testing and training features using the fitted vectorizer
@@ -92,10 +92,12 @@ for class_name in classes:
     pred[class_name] = classifier.predict(test_features)
 
 # output predictions to csv file
-pred.to_csv('predictions5.csv', index=False)
+pred.to_csv('predictions7.csv', index=False)
 
 # 50k words, 50k chars, score = 0.9811, file = predictions
 # 50k words, 10k chars, score = 0.9805, file = predictions2
 # 10k words, 50k chars, score = 0.9809, file = predictions3
 # 50k words, 100k chars, score = 0.9812, file = predictions4
 # 100k words, 100k chars, score = 0.9812, file = predictions5
+# same words/chars, ngram range is (2,5), score = 0.9811, file = predictions6
+# same words/chars, ngram range is (1,6), score = ______, file = predictions7
