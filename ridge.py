@@ -100,4 +100,4 @@ pred.to_csv('predictions7.csv', index=False)
 # 50k words, 100k chars, score = 0.9812, file = predictions4
 # 100k words, 100k chars, score = 0.9812, file = predictions5
 # same words/chars, ngram range is (2,5), score = 0.9811, file = predictions6
-# same words/chars, ngram range is (1,6), score = ______, file = predictions7
+# same words/chars, ngram range is (1,6), score = 0.9811, file = predictions7
