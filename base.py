@@ -23,9 +23,9 @@ path = "/Users/jordanbaker/Documents/Data Science/kaggle_toxic"
 os.chdir(path)
 
 # load data
-train = pd.read_csv("train.csv")
-test = pd.read_csv("test.csv")
-sample_sub = pd.read_csv("sample_submission.csv")
+train = pd.read_csv('train.csv')
+test = pd.read_csv('test.csv')
+sample_sub = pd.read_csv('sample_submission.csv')
 
 # check if any columns contain nulls
 train.isnull().sum()
