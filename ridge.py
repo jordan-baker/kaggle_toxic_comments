@@ -102,12 +102,9 @@ pred.to_csv('predictions7.csv', index=False)
 # same words/chars, ngram range is (2,5), score = 0.9811, file = predictions6
 # same words/chars, ngram range is (1,6), score = 0.9811, file = predictions7
 
-
-# chart of the results above ^ ?
-
-#
 # final to do
 # pep8 commenting
 # final writeup
 # setup github io
+# chart of the results with prediction files and scores
 # blog post?
