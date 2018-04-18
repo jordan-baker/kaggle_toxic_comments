@@ -96,6 +96,8 @@ pred.to_csv('predictions7.csv', index=False)
 
 
 
+
+
 ##### Parameter Testing
 # 50k words, 50k chars, score = 0.9811, file = predictions
 # 50k words, 10k chars, score = 0.9805, file = predictions2
@@ -104,6 +106,11 @@ pred.to_csv('predictions7.csv', index=False)
 # 100k words, 100k chars, score = 0.9812, file = predictions5
 # same words/chars, ngram range is (2,5), score = 0.9811, file = predictions6
 # same words/chars, ngram range is (1,6), score = 0.9811, file = predictions7
+
+
+
+
+
 
 # final to do
 # pep8 commenting
