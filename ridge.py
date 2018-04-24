@@ -95,9 +95,6 @@ for class_name in classes:
 pred.to_csv('predictions7.csv', index=False)
 
 
-
-
-
 ##### Parameter Testing
 # 50k words, 50k chars, score = 0.9811, file = predictions
 # 50k words, 10k chars, score = 0.9805, file = predictions2
