@@ -104,10 +104,6 @@ pred.to_csv('predictions7.csv', index=False)
 # same words/chars, ngram range is (1,6), score = 0.9811, file = predictions7
 #####
 
-
-
-
-
 # final to do
 # pep8 commenting
 # final writeup
