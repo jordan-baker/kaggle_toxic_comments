@@ -91,6 +91,8 @@ for class_name in classes:
     classifier.fit(train_features, train_target)
     pred[class_name] = classifier.predict(test_features)
 
+    
+
 # output predictions to csv file
 pred.to_csv('predictions7.csv', index=False)
 
