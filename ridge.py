@@ -7,6 +7,7 @@ Created on Tue Mar 13 22:18:54 2018
 https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge
 """
 
+
 # load base packages
 import os
 import numpy as np
