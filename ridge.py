@@ -94,6 +94,8 @@ for class_name in classes:
 
     
 
+
+
 # output predictions to csv file
 pred.to_csv('predictions7.csv', index=False)
 
